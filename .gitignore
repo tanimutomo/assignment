@@ -104,3 +104,4 @@ venv.bak/
 .mypy_cache/
 
 submit_*
+.DS_Store
