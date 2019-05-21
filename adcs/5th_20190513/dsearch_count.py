@@ -17,13 +17,12 @@ logging.basicConfig(level=logging.DEBUG, format='%(threadName)s: %(message)s')
 def proc(id, card, n, resultq):
     find = 0
     logging.debug('start')
-        # 探すべきnがcard[]内にあるかをチェック
+    # 探すべきnがcard[]内にあるかをチェック
     for c in card:
         if (c == n):
             logging.debug(i)        
             logging.debug('find!!!')        
-            find = 1
-            break
+            find += 1
     resultq.put(find)
     logging.debug('endloop')
 
@@ -36,8 +35,8 @@ if __name__ == '__main__':
     #
     card = [0 for i in range(100)]
     print("card all 0 clear:",card)
-    for i in range (100):
-        card[i] = random.randint(1,1000)
+    # for i in range (100):
+    #     card[i] = random.randint(1,1000)
     print("card=",card)
 
     #
@@ -62,7 +61,6 @@ if __name__ == '__main__':
     count = 0
     for thread in threadlist:
         thread.join()
-        if (resultq.get() == 1):
-            count += 1
+        count += resultq.get()
     print("The number of", num, "is", count)
     print("All thread is ended.")
