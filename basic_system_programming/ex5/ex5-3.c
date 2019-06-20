@@ -2,8 +2,9 @@
 #include <stdlib.h>
 #include <unistd.h>
 #include <fcntl.h>
+
 #define MAX_ITER 2048
-#define SIZE 4
+#define SIZE 128
 
 
 int main(int argc, char *argv[]) {
@@ -26,12 +27,13 @@ int main(int argc, char *argv[]) {
 
     // Read and write the contents of the file.
     for (int i = 0; i < MAX_ITER; i++) {
-        int tmp[SIZE];
-        res_read = read(fd, tmp, sizeof(int)*SIZE);
+        int content[SIZE];
+        res_read = read(fd, content, sizeof(int)*SIZE);
+        // printf("\n%d\n", res_read);
         if (res_read == 0) {
-            exit(0);
+            break;
         }
-        write(1, tmp, sizeof(int)*SIZE);
+        write(1, content, res_read);
     }
     close(fd);
 
