@@ -10,43 +10,64 @@
 
 int main(int argc, char *argv[]) {
   // Exception Handling
-  if (argc < 2) {
-    printf("Please specify the filename which you want to check contents.\n");
+  if (argc == 2) {
+    printf("Please specify the bytes of a output file and the filename which you want to check contents.\n");
     exit(1);
   }
 
+  // Check the arguments
+  // printf("%s, %s, %s\n", argv[0], argv[1], argv[2]);
+  int idx_byte;
+  if (argv[1][0] == '-') {
+    idx_byte = 1;
+  } else {
+    idx_byte = 2;
+  }
+
+  // Get the byte of seprated files
+  char sep_byte_str[sizeof(argv[idx_byte])];
+  for (int i = 1; i < sizeof(argv[idx_byte]); i++) {
+    sep_byte_str[i-1] = argv[idx_byte][i];
+    if (argv[idx_byte][i] == '\0') {
+      break;
+    }
+    // printf("%d: %c, ", i, sep_byte_str[i-1]);
+  }
+  int sep_byte = atoi(sep_byte_str);
+  printf("%d\n", sep_byte);
+
   // Load the reading file
-  int f = 1;
-  int fd, res_read;
-  fd = open(argv[f], O_RDONLY);
-  if (fd == -1) {
-    perror(argv[f]);
+  int idx_file = idx_byte % 2 + 1;
+  int fd_in, res_read;
+  fd_in = open(argv[idx_file], O_RDONLY);
+  if (fd_in == -1) {
+    perror(argv[idx_file]);
     exit(1);
   }
 
   // Define base file name
   char *filename = "out_f_";
   char out_f[30];
+  int fd_out;
+  int size = (float) sep_byte / (float) sizeof(int);
 
-  // Create and Open the output file
-  int fd_out, f_count = 0;
-  sprintf(out_f, "%s%d", filename, f_count);
-  fd_out = open(out_f, O_WRONLY|O_CREAT, 0700);
+  for (int f_count = 0;;f_count++) {
+    // Create and Open the output file
+    sprintf(out_f, "%s%d", filename, f_count);
+    fd_out = open(out_f, O_WRONLY|O_CREAT, 0700);
 
-  // Read and Write the contents of the file.
-  int count = 0;
-  for (int i = 0; i < MAX_ITER; i++) {
-    int content[SIZE];
-    res_read = read(fd, content, sizeof(int)*SIZE);
-    count += res_read;
-    printf("%d\n", res_read);
-    if (res_read == 0) {
+    // Read and Write the contents of the file.
+    int content[size];
+    // for (int i = 0; i < MAX_ITER; i++) {
+    res_read = read(fd_in, content, sep_byte);
+    write(fd_out, content, res_read);
+    printf("res_read: %d\n", res_read);
+    if (res_read < sep_byte) {
       break;
     }
-    write(fd_out, content, res_read);
+    // }
+    close(fd_out);
   }
-  close(fd);
-  close(fd_out);
-
+  close(fd_in);
   exit(0);
 }
