@@ -53,19 +53,17 @@ int main(int argc, char *argv[]) {
 
   for (int f_count = 0;;f_count++) {
     // Create and Open the output file
-    sprintf(out_f, "%s%d", filename, f_count);
+    sprintf(out_f, "%s%s%d", argv[idx_file], ".part", f_count);
     fd_out = open(out_f, O_WRONLY|O_CREAT, 0700);
 
     // Read and Write the contents of the file.
     int content[size];
-    // for (int i = 0; i < MAX_ITER; i++) {
     res_read = read(fd_in, content, sep_byte);
     write(fd_out, content, res_read);
-    printf("res_read: %d\n", res_read);
+    // printf("res_read: %d\n", res_read);
     if (res_read < sep_byte) {
       break;
     }
-    // }
     close(fd_out);
   }
   close(fd_in);
