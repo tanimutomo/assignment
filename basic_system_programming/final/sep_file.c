@@ -16,7 +16,7 @@ int main(int argc, char *argv[]) {
   }
 
   // Check the arguments
-  // printf("%s, %s, %s\n", argv[0], argv[1], argv[2]);
+  printf("%s, %s, %s\n", argv[0], argv[1], argv[2]);
   int idx_byte;
   if (argv[1][0] == '-') {
     idx_byte = 1;
@@ -25,15 +25,15 @@ int main(int argc, char *argv[]) {
   }
 
   // Get the byte of seprated files
-  char sep_byte_str[sizeof(argv[idx_byte])];
-  for (int i = 1; i < sizeof(argv[idx_byte]); i++) {
-    sep_byte_str[i-1] = argv[idx_byte][i];
-    if (argv[idx_byte][i] == '\0') {
-      break;
-    }
-    // printf("%d: %c, ", i, sep_byte_str[i-1]);
-  }
-  int sep_byte = atoi(sep_byte_str);
+  // char sep_byte_str[sizeof(argv[idx_byte])];
+  // for (int i = 1; i < sizeof(argv[idx_byte]); i++) {
+  //   sep_byte_str[i-1] = argv[idx_byte][i];
+  //   if (argv[idx_byte][i] == '\0') {
+  //     break;
+  //   }
+  //   // printf("%d: %c, ", i, sep_byte_str[i-1]);
+  // }
+  int sep_byte = atoi(++argv[idx_byte]);
   printf("%d\n", sep_byte);
 
   // Load the reading file
@@ -50,6 +50,7 @@ int main(int argc, char *argv[]) {
   char out_f[30];
   int fd_out;
   int size = (float) sep_byte / (float) sizeof(int);
+  int content[size];
 
   for (int f_count = 0;;f_count++) {
     // Create and Open the output file
@@ -57,7 +58,6 @@ int main(int argc, char *argv[]) {
     fd_out = open(out_f, O_WRONLY|O_CREAT, 0700);
 
     // Read and Write the contents of the file.
-    int content[size];
     res_read = read(fd_in, content, sep_byte);
     write(fd_out, content, res_read);
     // printf("res_read: %d\n", res_read);
