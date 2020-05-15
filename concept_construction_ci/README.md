@@ -1,7 +1,7 @@
 # Concept Construction (CI)
 
 ## Assignment
-### 2020/05/20
+### 1. ensemble machine learning (~2020/05/20)
 - [ensemble machine learningを利用したbinary classification](./ensemble_machine_learning)
 - [ml5.jsを利用したアプリケーション](./ml5_yolo)
 
