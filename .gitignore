@@ -107,3 +107,4 @@ submit_*
 .DS_Store
 submission*
 *.swp
+.vscode/
