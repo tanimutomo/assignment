@@ -5,7 +5,7 @@
 - [ensemble machine learningを利用したbinary classification](./ensemble_machine_learning)
 - [ml5.jsを利用したアプリケーション](./ml5_yolo)
 
-### 2. orthogonal array (~2020/06/03)
+### 2. orthogonal array (~2020/06/09)
 - [orthogonal array](./orthogonal_array)
 
 ## Class
