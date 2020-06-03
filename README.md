@@ -1,2 +1,1 @@
-# assignment
-For managing the class assignments
+# Class Assignments
