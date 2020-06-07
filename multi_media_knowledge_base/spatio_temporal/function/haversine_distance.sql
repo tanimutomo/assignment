@@ -11,9 +11,7 @@ from (
         select (s1.lat - s2.lat) / 2 as lat_mean,
           (s1.lng - s2.lng) / 2 as lng_mean,
           s1.lat as lat_s1,
-          s1.lng as lng_s1,
           s2.lat as lat_s2,
-          s2.lng as lng_s2,
           c.R as R
         from (
             select $1 / 180 * pi() as lat,
