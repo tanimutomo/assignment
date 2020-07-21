@@ -6,7 +6,7 @@ import torch
 import data
 import network
 
-WEIGHT_PATH = "./models/tut2-model.pth"
+WEIGHT_PATH = "./models/tut-model.pth"
 EMBEDDING_DIM = 100
 HIDDEN_DIM = 256
 OUTPUT_DIM = 1

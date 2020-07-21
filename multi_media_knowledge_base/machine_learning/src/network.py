@@ -11,14 +11,7 @@ class RNN(nn.Module):
         
     def forward(self, text):
         # text = [sent len, batch size]
-        
-        # embedding layerでは，textのままだと次元数が多すぎるので，それを削減するために，
         embedded = self.embedding(text)
-        # embedded = [sent len, batch size, emb dim]
-        
         output, hidden = self.rnn(embedded)
-        # output = [sent len, batch size, hid dim]
-        # hidden = [1, batch size, hid dim]
-        
         assert torch.equal(output[-1, :, :], hidden.squeeze(0))
         return self.fc(hidden.squeeze(0))

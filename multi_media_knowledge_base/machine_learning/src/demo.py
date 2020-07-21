@@ -14,10 +14,9 @@ text = st.text_input("text", "This is so good !")
 pred = predict.do(text)
 
 """
-## Prediction
+## Predicted Sentiment
 """
 
-print(pred)
 if pred < 0.5:
     "Negative"
 else:
